@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import EventListener from 'react-event-listener';
 import randomWords from 'random-words';
-import MissedLetters from './MissedLetters';
+import MissedLetters from '../MissedLetters';
+import Modal from 'react-modal';
 
-import { rightGuess, wrongGuess, newWord } from "../redux/actions";
+import { rightGuess, wrongGuess, newWord } from "../../assets/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import WordLetters from './WordLetters';
-import HangedMan from './HangedMan';
+import WordLetters from '../WordLetters';
+import HangedMan from '../HangedMan';
 
 const Game = () => {
     const { word, lettersTried, lettersLeft, counter, missedLettersArr } = useSelector(state => ({
@@ -18,6 +19,8 @@ const Game = () => {
     }))
 
     const dispatch = useDispatch();
+
+    const keyRegEx = new RegExp(/^[a-z]/);
 
     useEffect(() => {
         setNewWord();
@@ -36,16 +39,18 @@ const Game = () => {
 
     function handleKeyDown(e) {
         const key = e.key.toLowerCase()
-        console.log(key, 'Pressed');
-        debugger
-        if (lettersTried.includes(key)) {
+        if (keyRegEx.test(key)) {
+            console.log(key, 'Pressed');
             debugger
-            console.log('tried before');
-        } else {
-            if (lettersLeft.includes(key)) {
-                handleRightGUess(key);
+            if (lettersTried.includes(key)) {
+                debugger
+                console.log('tried before');
             } else {
-                handleWrongGuess(key);
+                if (lettersLeft.includes(key)) {
+                    handleRightGUess(key);
+                } else {
+                    handleWrongGuess(key);
+                }
             }
         }
     }
@@ -70,9 +75,11 @@ const Game = () => {
     return (
         <div>
             <EventListener target={document} onKeyDown={handleKeyDown} />
-            <HangedMan />
-            {/* <MissedLetters MissedLettersArr={missedLettersArr} /> */}
-            {/* <WordLetters /> */}
+            <div id='upperContainer'>
+                <HangedMan />
+                <WordLetters />
+            </div>
+            <MissedLetters MissedLettersArr={missedLettersArr} />
         </div>
     )
 }

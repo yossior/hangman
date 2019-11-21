@@ -1,0 +1,11 @@
+.missedLetters {
+    position: relative;
+    left: 50px;
+
+}
+
+#MLWrapper {
+    font-family: 'MyFont';
+    color: #4D71FA;
+    font-size: 3em;
+}

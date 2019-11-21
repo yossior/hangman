@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import WordCube from "./LetterCube";
+import WordCube from "../LetterCube";
+import './style.css'
 
 const WordLetters = () => {
 
@@ -10,8 +11,10 @@ const WordLetters = () => {
     }))
 
     return (
-        <div>
-            {lettersList.map(letter => <WordCube letter={letter} reveal={!lettersLeft.includes(letter)} />)}
+        <div className='wordLetters'>
+            <ul>
+                {lettersList.map(letter => <li><WordCube letter={letter} reveal={!lettersLeft.includes(letter)} /></li>)}
+            </ul>
         </div>
     )
 }

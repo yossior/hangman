@@ -1,102 +1,45 @@
-
-.letterCube {
-  background-color: #53555D;
-  width: 89px;
-  height: 99px;
-}
-
-#hangman {
-  padding-left: 308px;
-  position: relative
-}
-
-#head {
+#head,
+#neck,
+#corpus,
+#leftArmHand,
+#bodyCenter,
+#rightArmHand,
+#leftArm,
+#rightArm,
+#leftHand,
+#rightHand,
+#leftLegFoot,
+#rightLegFoot,
+#leftFoot,
+#rightFoot,
+.wordLetters {
   position: absolute;
-  top: -15px;
+}
+
+#leftArmHand,
+#rightArmHand,
+#leftArm,
+#rightArm,
+#leftLegFoot,
+#rightLegFoot,
+#leftFoot,
+#rightFoot,
+#head {
   z-index: 1
 }
 
+#missedLetters,
+#hangman,
 #head,
 #neck {
   display: block;
 }
 
-#neck {
-  position: absolute;
-  padding-left: 72px;
-  padding-top: 170px;
-
+@font-face {
+  font-family: "MyFont";
+  src: url("./assets/fonts/AllerDisplay.ttf");
 }
 
-#corpus {
-  padding-left: 45px;
-}
-
-#bodyCenter {
-  position: absolute;
-  padding-top: 210px;
-}
-
-#leftArm,
-#rightArm {
-  position: absolute;
-  z-index: 1
-}
-
-#leftArm {
-  left: -40px;
-  z-index: 1;
-}
-
-#rightArm {
-  left: 108px
-}
-
-#leftHand,
-#rightHand {
-  position: relative;
-  top: 160px;
-
-}
-
-#leftHand {
-  left: -47px
-}
-
-#rightHand {
-  left: 177px;
-}
-
-
-
-#leftLeg,
-#rightLeg {
-  position: relative;
-  top: 358px;
-  z-index: 1;
-}
-
-#leftLeg {
-  left: -48px
-}
-
-#rightLeg {
-  left: -42px
-}
-
-#leftFoot,
-#rightFoot {
-  position: relative;
-  top: 380px;
-  z-index: 2
-}
-
-#leftFoot {
-  position: relative;
-  left: -240px
-}
-
-#rightFoot {
-  position: relative;
-  left: -181px
+#upperContainer {
+  float: left;
 }

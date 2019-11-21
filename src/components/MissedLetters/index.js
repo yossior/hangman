@@ -1,14 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import './style.css'
 
 const MissedLetters = () => {
 
     const lettersList = useSelector(state => state.missedLetters);
 
     return (
-        <div>
+        <div className='missedLetters'>
             <h2>You Missed:</h2>
-            {lettersList.map(letter => `${letter} `)}
+            <div id='MLWrapper'>
+                {lettersList.map(letter => `${letter} `)}
+            </div>
+
         </div>
     )
 }

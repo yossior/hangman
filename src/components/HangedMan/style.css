@@ -1,0 +1,79 @@
+#hangman {
+    padding-left: 308px;
+    position: relative
+  }
+  
+  .hangedManComp {
+    width: 600px;
+    height: 600px
+  }
+  
+  .wordLetters {
+    padding: 10px;
+  }
+  
+  #head {
+    top: -15px;
+  }
+  
+  #neck {
+    padding-left: 72px;
+    padding-top: 170px;
+  
+  }
+  
+  #corpus {
+    padding-left: 45px;
+  }
+  
+  #bodyCenter {
+    padding-top: 210px;
+  }
+  
+  #leftArmHand {
+    left: -40px;
+  }
+  
+  #rightArmHand {
+    left: 108px
+  }
+  
+  #leftHand {
+    top: 96px;
+    left: -5px
+  }
+  
+  #rightHand {
+    left: 98px;
+    top: 96px;
+  }
+  
+  #legs {
+    position: relative;
+  }
+  
+  #leftLegFoot,
+  #rightLegFoot {
+    top: 358px;
+  }
+  
+  #leftLegFoot {
+    left: 12px
+  }
+  
+  #rightLegFoot {
+    left: 100px;
+  }
+  
+  #leftFoot,
+  #rightFoot {
+    top: 150px;
+  }
+  
+  #leftFoot {
+    left: -23px;
+  }
+  
+  #rightFoot {
+    left: 21px;
+  }

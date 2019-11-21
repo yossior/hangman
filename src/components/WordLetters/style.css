@@ -1,0 +1,13 @@
+ul {
+    list-style-type: none;
+    display: block;
+  }
+  
+  li {
+    float: left;
+    margin: 10px;
+    font-family: MyFont;
+    font-size: 5em;
+    color: aliceblue;
+    text-align: center
+  }
