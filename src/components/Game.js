@@ -1,37 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import EventListener from 'react-event-listener';
 import randomWords from 'random-words';
+import MissedLetters from './MissedLetters';
 
-// const images = importAll(require.context('../assets/imgs', false, '/\.png/'));
-
+import { rightGuess, wrongGuess, newWord } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import WordLetters from './WordLetters';
 
 const Game = () => {
-    const initialWord = randomWords();
-    const [counter, setCounter] = useState(0);
-    const [word, setWord] = useState(initialWord);
-    const [lettersLeft, setLetterLeft] = useState(word);
-    const [wrongGuesses, setWrongGuesses] = useState([]);
 
-    function newWord() {
-        debugger
-        const word = randomWords();
-        setWord(word);
-        setLetterLeft(word);
+    const { word, lettersTried, lettersLeft, counter, missedLettersArr } = useSelector(state => ({
+        word: state.word,
+        lettersTried: state.lettersTried,
+        lettersLeft: state.lettersLeft,
+        counter: state.wrongGuessesCounter,
+        missedLettersArr: state.missedLetters
+    }))
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setNewWord();
+    }, [])
+
+    useEffect(() => {
+        console.log(missedLettersArr);
+        
+        if (counter === 11) handleLoose()
+        if (lettersLeft.length === 0 && word !== '') handleWin()
+    })
+
+    function setNewWord() {
+        dispatch(newWord(randomWords()));
     }
-
-    setTimeout(() => {
-        newWord()
-    }, 3000);
-
 
     function handleKeyDown(e) {
         const key = e.key.toLowerCase()
         console.log(key, 'Pressed');
-
-        if (word.includes(key)) {
-            highlightLetters(key);
+        debugger
+        if (lettersTried.includes(key)) {
+            debugger
+            console.log('tried before');
         } else {
-            handleWrongGuess(key);
+            if (lettersLeft.includes(key)) {
+                handleRightGUess(key);
+            } else {
+                handleWrongGuess(key);
+            }
         }
     }
 
@@ -39,24 +54,8 @@ const Game = () => {
         alert('Win!')
     }
 
-    useEffect(() => {
-        console.log('Word:', word);
-        console.log('letters left', lettersLeft);
-        console.log('Wrong guesses:', counter);
-        if (lettersLeft == 0) handleWin();
-    }, [lettersLeft])
-
-    useEffect(() => {
-        console.log('Word:', word);
-        console.log('letters left', lettersLeft);
-        console.log('Wrong guesses:', counter);
-        if (counter == 11) handleLoose()
-
-    }, [counter])
-
-    function highlightLetters(letter) {
-        //TODO Reveal letters
-        setLetterLeft(lettersLeft.replace(new RegExp(letter, 'g'), ''));
+    function handleRightGUess(letter) {
+        dispatch(rightGuess(letter));
     }
 
     function handleLoose() {
@@ -64,18 +63,15 @@ const Game = () => {
     }
 
     function handleWrongGuess(letter) {
-        if (counter != 11) {
-            setWrongGuesses([...wrongGuesses, letter]);
-            setCounter(counter + 1);
-        } else {
-            handleLoose();
-        }
+        debugger
+        dispatch(wrongGuess(letter));
     }
 
     return (
         <div>
             <EventListener target={document} onKeyDown={handleKeyDown} />
-
+            <MissedLetters MissedLettersArr={missedLettersArr} />
+            <WordLetters />
         </div>
     )
 }
