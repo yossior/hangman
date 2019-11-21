@@ -1,28 +1,102 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-
-.letterCube{
+.letterCube {
   background-color: #53555D;
   width: 89px;
   height: 99px;
+}
+
+#hangman {
+  padding-left: 308px;
+  position: relative
+}
+
+#head {
+  position: absolute;
+  top: -15px;
+  z-index: 1
+}
+
+#head,
+#neck {
+  display: block;
+}
+
+#neck {
+  position: absolute;
+  padding-left: 72px;
+  padding-top: 170px;
+
+}
+
+#corpus {
+  padding-left: 45px;
+}
+
+#bodyCenter {
+  position: absolute;
+  padding-top: 210px;
+}
+
+#leftArm,
+#rightArm {
+  position: absolute;
+  z-index: 1
+}
+
+#leftArm {
+  left: -40px;
+  z-index: 1;
+}
+
+#rightArm {
+  left: 108px
+}
+
+#leftHand,
+#rightHand {
+  position: relative;
+  top: 160px;
+
+}
+
+#leftHand {
+  left: -47px
+}
+
+#rightHand {
+  left: 177px;
+}
+
+
+
+#leftLeg,
+#rightLeg {
+  position: relative;
+  top: 358px;
+  z-index: 1;
+}
+
+#leftLeg {
+  left: -48px
+}
+
+#rightLeg {
+  left: -42px
+}
+
+#leftFoot,
+#rightFoot {
+  position: relative;
+  top: 380px;
+  z-index: 2
+}
+
+#leftFoot {
+  position: relative;
+  left: -240px
+}
+
+#rightFoot {
+  position: relative;
+  left: -181px
 }

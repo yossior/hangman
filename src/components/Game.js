@@ -6,9 +6,9 @@ import MissedLetters from './MissedLetters';
 import { rightGuess, wrongGuess, newWord } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import WordLetters from './WordLetters';
+import HangedMan from './HangedMan';
 
 const Game = () => {
-
     const { word, lettersTried, lettersLeft, counter, missedLettersArr } = useSelector(state => ({
         word: state.word,
         lettersTried: state.lettersTried,
@@ -25,7 +25,7 @@ const Game = () => {
 
     useEffect(() => {
         console.log(missedLettersArr);
-        
+
         if (counter === 11) handleLoose()
         if (lettersLeft.length === 0 && word !== '') handleWin()
     })
@@ -70,8 +70,9 @@ const Game = () => {
     return (
         <div>
             <EventListener target={document} onKeyDown={handleKeyDown} />
-            <MissedLetters MissedLettersArr={missedLettersArr} />
-            <WordLetters />
+            <HangedMan />
+            {/* <MissedLetters MissedLettersArr={missedLettersArr} /> */}
+            {/* <WordLetters /> */}
         </div>
     )
 }
