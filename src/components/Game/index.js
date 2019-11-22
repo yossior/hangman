@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import EventListener from 'react-event-listener';
 import randomWords from 'random-words';
 import MissedLetters from '../MissedLetters';
-import Modal from 'react-modal';
+import GameOverScreen from "../GameOverScreen";
 
-import { rightGuess, wrongGuess, newWord } from "../../assets/redux/actions";
+import { rightGuess, wrongGuess, newWord } from "../../assets/redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import WordLetters from '../WordLetters';
 import HangedMan from '../HangedMan';
+import Modal from 'react-modal';
 
 const Game = () => {
     const { word, lettersTried, lettersLeft, counter, missedLettersArr } = useSelector(state => ({
@@ -18,45 +19,69 @@ const Game = () => {
         missedLettersArr: state.missedLetters
     }))
 
-    const dispatch = useDispatch();
+    const customStyles = {
+        overlay: {
+            backgroundColor: 'rgba(107,113,137,0.3)',
+            zIndex: 100
+        },
+        content: {
+            backgroundColor: 'rgba(0,0,0,0)',
+            zIndex: 100,
+            border: '0px',
+            color: '#ffffff',
+            width: '300px',
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            // marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        }
+    };
 
-    const keyRegEx = new RegExp(/^[a-z]/);
+    const [displayGameOver, setDisplayGameOver] = useState(false)
+    const dispatch = useDispatch();
+    const keyRegEx = new RegExp(/^[a-z]{1}$/);
+
+    Modal.defaultStyles.overlay.backgroundColor = 'cornsilk';
 
     useEffect(() => {
         setNewWord();
     }, [])
 
     useEffect(() => {
-        console.log(missedLettersArr);
-
-        if (counter === 11) handleLoose()
+        toggleGameOver(counter === 12)
+        if (counter === 12) handleLoose()
         if (lettersLeft.length === 0 && word !== '') handleWin()
     })
+
+    function toggleGameOver(bool) {
+        setDisplayGameOver(bool)
+    }
 
     function setNewWord() {
         dispatch(newWord(randomWords()));
     }
 
     function handleKeyDown(e) {
-        const key = e.key.toLowerCase()
-        if (keyRegEx.test(key)) {
-            console.log(key, 'Pressed');
-            debugger
-            if (lettersTried.includes(key)) {
-                debugger
-                console.log('tried before');
-            } else {
-                if (lettersLeft.includes(key)) {
-                    handleRightGUess(key);
+        if (counter !== 12) {
+            const key = e.key.toLowerCase()
+            //Filter alphabet chars
+            if (keyRegEx.test(key)) {
+                if (lettersTried.includes(key)) {
                 } else {
-                    handleWrongGuess(key);
+                    if (lettersLeft.includes(key)) {
+                        handleRightGUess(key);
+                    } else {
+                        handleWrongGuess(key);
+                    }
                 }
             }
         }
     }
 
     function handleWin() {
-        alert('Win!')
+        setDisplayGameOver(true)
     }
 
     function handleRightGUess(letter) {
@@ -64,22 +89,25 @@ const Game = () => {
     }
 
     function handleLoose() {
-        alert('loose /:')
+        setDisplayGameOver(true)
+
     }
 
     function handleWrongGuess(letter) {
-        debugger
         dispatch(wrongGuess(letter));
     }
 
     return (
-        <div>
+        <div >
             <EventListener target={document} onKeyDown={handleKeyDown} />
             <div id='upperContainer'>
                 <HangedMan />
                 <WordLetters />
             </div>
             <MissedLetters MissedLettersArr={missedLettersArr} />
+            <Modal isOpen={displayGameOver} style={customStyles} >
+                <GameOverScreen win={counter !== 12} />
+            </Modal>
         </div>
     )
 }

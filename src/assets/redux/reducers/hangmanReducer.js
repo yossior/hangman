@@ -1,4 +1,4 @@
-import actions from "./actionsEnum";
+import actions from "../actionsEnum";
 
 const initialState = {
     word: '',
@@ -17,14 +17,13 @@ const hangmanReducer = (state = initialState, action) => {
     switch (action.type) {
         case actions.NEWWORD:
             newState = {
-                ...state,
+                ...initialState,
                 word: action.word,
                 lettersLeft: Array.from(action.word)
             }
             return newState;
 
         case actions.RIGHTGUESS:
-            debugger
             newState = {
                 ...state,
                 lettersLeft: state.lettersLeft.filter(char => char !== action.letter),
@@ -33,7 +32,6 @@ const hangmanReducer = (state = initialState, action) => {
             return newState;
 
         case actions.WRONGGUESS:
-            debugger
             newState = {
                 ...state,
                 lettersTried: addLetterToTried(state.lettersTried, action.letter),

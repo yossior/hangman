@@ -12,7 +12,6 @@ const MissedLetters = () => {
             <div id='MLWrapper'>
                 {lettersList.map(letter => `${letter} `)}
             </div>
-
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import actions from "./actionsEnum";
+import actions from "../actionsEnum";
 
 export const rightGuess = letter => {
    return async (dispatch) => {

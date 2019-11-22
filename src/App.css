@@ -29,9 +29,7 @@
 }
 
 #missedLetters,
-#hangman,
-#head,
-#neck {
+#hangman{
   display: block;
 }
 
